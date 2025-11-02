@@ -1,0 +1,84 @@
+services:
+  postgres:
+    container_name: ms_pg_sql
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - microservices-net
+  adminer:
+    image: adminer
+    container_name: ms_adminer
+    restart: unless-stopped
+    ports:
+      - "8000:8080"
+  pgadmin:
+    image: dpage/pgadmin4:9.8
+    container_name: ms_pg_admin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin_password
+      PGADMIN_CONFIG_SERVER_MODE: 'False' # Optional: Set to 'False' to disable master password requirement
+    ports:
+      - "5050:80" # Map host port 8080 to container port 80
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    networks:
+      - microservices-net
+
+
+  mongodb:
+    container_name: ms_mongo_db
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongouser
+      MONGO_INITDB_ROOT_PASSWORD: mongopassword
+
+  mongo-express:
+    container_name: ms_mongo_express
+    image: mongo-express
+    restart: always
+    depends_on:
+      - mongodb
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: mongouser
+      ME_CONFIG_MONGODB_ADMINPASSWORD: mongopassword
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin
+      ME_CONFIG_OPTIONS_EDITORTHEME: default
+
+
+  mail-dev:
+    container_name: ms_mail_dev
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+
+
+
+networks:
+  microservices-net:
+    driver: bridge
+
+
+volumes:
+  pgdata:
+  pgadmin:
+  mongo:
+  mongo_data:
