@@ -1,5 +1,6 @@
 package com.ecomm.product.mapper;
 
+import com.ecomm.product.dto.ProductPurchaseResponse;
 import com.ecomm.product.dto.ProductRequest;
 import com.ecomm.product.dto.ProductResponse;
 import com.ecomm.product.product.Category;
@@ -34,5 +35,9 @@ public class ProductMapper {
                 .categoryDescription(product.getCategory().getDescription())
                 .availableQuantity(product.getAvailableQuantity())
                 .build();
+    }
+
+    public ProductPurchaseResponse toProductPurchaseResponse(Product product, double quantity) {
+        return new ProductPurchaseResponse(product.getId(), product.getName(), product.getDescription(),product.getPrice(), quantity);
     }
 }

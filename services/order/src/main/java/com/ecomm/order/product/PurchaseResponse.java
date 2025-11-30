@@ -1,24 +1,21 @@
-package com.ecomm.product.dto;
+package com.ecomm.order.product;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
 @Getter
-@Setter
-@Builder
 @AllArgsConstructor
-public class ProductPurchaseResponse {
-
+@NotNull
+@Component
+public class PurchaseResponse {
     private Integer productId;
 
     private String name;
-
     private String description;
-
     private BigDecimal price;
 
     private double quantity;
