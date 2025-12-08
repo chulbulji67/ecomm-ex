@@ -1,6 +1,7 @@
 package com.ecomm.order.mapper;
 
 import com.ecomm.order.dto.OrderRequest;
+import com.ecomm.order.dto.OrderResponse;
 import com.ecomm.order.entity.Order;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +18,13 @@ public class OrderMapper {
                 .totalAmount(request.getAmount())
                 .paymentMethod(request.getPaymentMethod())
                 .build();
+    }
+
+    public OrderResponse fromOrder(Order order) {
+        return new OrderResponse(order.getId(),
+                    order.getReference(),
+                order.getTotalAmount(),
+                order.getPaymentMethod(),
+                order.getCustomerId());
     }
 }
