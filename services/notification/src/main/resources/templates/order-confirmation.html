@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmation</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f6f6f6; padding: 20px; }
+        .email-container { background-color: white; padding: 20px; border-radius: 8px; }
+        .header { font-size: 22px; font-weight: bold; margin-bottom: 20px; }
+        .content { font-size: 16px; }
+        .product-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .product-table th, .product-table td {
+            border: 1px solid #ddd; padding: 8px; text-align: left;
+        }
+        .footer { margin-top: 25px; font-size: 13px; color: #777; }
+    </style>
+</head>
+<body>
+
+<div class="email-container">
+    <div class="header">Your Order Confirmation</div>
+
+    <div class="content">
+        <p>Hello <strong th:text="${customerName}"></strong>,</p>
+
+        <p>Your order has been successfully placed!</p>
+
+        <p><strong>Total Amount:</strong> <span th:text="${amount}"></span></p>
+        <p><strong>Order Reference:</strong> <span th:text="${orderReference}"></span></p>
+
+        <h3>Products in your order:</h3>
+
+        <table class="product-table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.description}"></td>
+                <td th:text="${product.price}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p>Thank you for choosing our service!</p>
+    </div>
+
+    <div class="footer">
+        © 2025 E-Commerce Service
+    </div>
+</div>
+
+</body>
+</html>

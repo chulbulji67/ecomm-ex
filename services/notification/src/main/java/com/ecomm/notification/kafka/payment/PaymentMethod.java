@@ -1,2 +1,14 @@
-package com.ecomm.notification.kafka.payment;public class PaymentMethod {
+package com.ecomm.notification.kafka.payment;
+
+public enum PaymentMethod {
+    PAYPAL,
+    CREDIT_CARD,
+
+    VISA,
+    MASTER_CARD,
+    BITCOIN
 }
+
+
+
+

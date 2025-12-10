@@ -1,4 +1,4 @@
-package com.ecomm.payment.notificatin;
+package com.ecomm.payment.notification;
 
 import com.ecomm.payment.entity.PaymentMethod;
 import lombok.AllArgsConstructor;

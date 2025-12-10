@@ -11,6 +11,8 @@ import com.ecomm.order.kafka.OrderConfirmation;
 import com.ecomm.order.kafka.OrderProducer;
 import com.ecomm.order.mapper.OrderMapper;
 import com.ecomm.order.orderline.OrderLineRequest;
+import com.ecomm.order.payment.PaymentClient;
+import com.ecomm.order.payment.PaymentRequest;
 import com.ecomm.order.product.PurchaseRequest;
 import com.ecomm.order.product.PurchaseResponse;
 import com.ecomm.order.repository.OrderRepository;
@@ -36,6 +38,8 @@ public class OrderService {
 
     private final OrderProducer orderProducer;
 
+    private final PaymentClient paymentClient;
+
     public Integer createOrder(OrderRequest request) {
         //check the customer OpenFeign
         CustomerResponse customer = customerClient.findCustomerById(request.getCustomerId())
@@ -55,9 +59,11 @@ public class OrderService {
         }
 
         //start payment process
+        PaymentRequest paymentRequest = new PaymentRequest(request.getAmount(),
+                request.getPaymentMethod(), order.getId(), order.getReference(), customer);
+        paymentClient.requestOrderPayment(paymentRequest);
 
         //send the order confirmation->> notification-ms (Kafka)
-
         orderProducer.sendOrderConfirmation(new OrderConfirmation(
                 request.getReference(),
                 request.getAmount(),
