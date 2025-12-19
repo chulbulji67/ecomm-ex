@@ -25,7 +25,7 @@ public class NotificationConsumer {
 
     @KafkaListener(topics = "payment-topic")
     public void consumePaymentSuccessNotification(PaymentConfirmation paymentConfirmation) throws MessagingException {
-        log.info(String.format("Consuming the message from payment topic Topic:: %s", paymentConfirmation));
+       log.info(String.format("Consuming the message from payment topic Topic:: %s", paymentConfirmation));
         notificationRepository.save(
                 Notification.builder()
                         .type(NotificationType.PAYMENT_CONFIRMATION)

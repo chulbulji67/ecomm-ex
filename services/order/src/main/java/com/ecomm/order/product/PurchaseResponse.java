@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 @Getter
 @AllArgsConstructor
 @NotNull
-@Component
 public class PurchaseResponse {
     private Integer productId;
 

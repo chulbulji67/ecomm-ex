@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(
         name = "product-service",
-        url = "@{application.config.payment-url}"
+        url = "${application.config.payment-url}"
 )
 public interface PaymentClient {
 
     @PostMapping
-    Integer requestOrderPayment(@RequestBody PaymentRequest request);
+    Integer createPayment(@RequestBody PaymentRequest request);
 }

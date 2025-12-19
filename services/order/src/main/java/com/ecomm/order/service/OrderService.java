@@ -61,7 +61,7 @@ public class OrderService {
         //start payment process
         PaymentRequest paymentRequest = new PaymentRequest(request.getAmount(),
                 request.getPaymentMethod(), order.getId(), order.getReference(), customer);
-        paymentClient.requestOrderPayment(paymentRequest);
+        paymentClient.createPayment(paymentRequest);
 
         //send the order confirmation->> notification-ms (Kafka)
         orderProducer.sendOrderConfirmation(new OrderConfirmation(

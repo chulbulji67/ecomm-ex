@@ -2,12 +2,13 @@ package com.ecomm.order.dto;
 
 import com.ecomm.order.entity.PaymentMethod;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
-@Component
 @AllArgsConstructor
+@NoArgsConstructor
 public class OrderResponse {
 
     Integer id;

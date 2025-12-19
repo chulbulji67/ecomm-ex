@@ -6,6 +6,7 @@ import com.ecomm.customer.entity.Customer;
 import com.ecomm.customer.service.CustomerService;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.PUT;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/customers")
+@Slf4j
 public class CustomerController {
 
     private final CustomerService service;
@@ -23,6 +25,7 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<String> createCustomer(@RequestBody @Valid CustomerRequest customerRequest){
+        log.info("Creating a new User");
         return ResponseEntity.ok(service.createCustomer(customerRequest));
 
     }

@@ -5,10 +5,7 @@ import com.ecomm.payment.service.PaymentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/v1/payments")
 @RestController
@@ -22,5 +19,10 @@ public class PaymentController {
             @RequestBody @Valid PaymentRequest request
     ){
         return ResponseEntity.ok(paymentService.createPayment(request));
+    }
+
+    @GetMapping
+    public ResponseEntity<String> test(){
+        return ResponseEntity.ok("Working fine");
     }
 }
